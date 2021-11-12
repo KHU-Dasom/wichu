@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { Typography, Button } from "@mui/material";
 import theme from "../../../styles/theme";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
 import { useRecoilState } from "recoil";
 import { authorizationState } from "../../../recoil/atoms";
@@ -26,6 +26,8 @@ export const StyledPartnerListPage = styled.div`
 export const PartnerListPage = (): JSX.Element | null => {
   const navigate = useNavigate();
   const [authorization, setAuthorization] = useRecoilState(authorizationState);
+
+  const [value, setValue] = useState<number>();
 
   useEffect(() => {
     const fetch = async () => {
@@ -77,7 +79,18 @@ export const PartnerListPage = (): JSX.Element | null => {
       <Stack spacing={2} sx={{ width: "90vw", margin: "0 auto" }}>
         {partners.map((partner, idx) => (
           <Card key={idx} sx={{ width: "100%" }}>
-            <CardActionArea sx={{ display: "flex", padding: "1rem" }}>
+            <CardActionArea
+              sx={{
+                display: "flex",
+                padding: "1rem",
+              }}
+              style={{
+                backgroundColor: idx === value ? "lightgrey" : undefined,
+              }}
+              onClick={() => {
+                setValue(idx);
+              }}
+            >
               <Avatar
                 sx={{ width: 50, height: 50, marginRight: "20px" }}
                 src={partner.imgSrc}
