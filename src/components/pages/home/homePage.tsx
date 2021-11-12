@@ -4,9 +4,7 @@ import styled from "styled-components";
 
 export const StyledHomePage = styled.div``;
 
-interface PropType {}
-
-export const HomePage = ({}: PropType): JSX.Element | null => {
+export const HomePage = (): JSX.Element | null => {
   return (
     <Container maxWidth="sm">
       <Box sx={{ my: 4 }}>
