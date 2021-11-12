@@ -60,6 +60,7 @@ export const SignInPage = (): JSX.Element | null => {
       <StyledButton
         variant="contained"
         sx={{ marginTop: "4rem", marginBottom: "1rem" }}
+        onClick={() => navigate("/")}
       >
         로그인
       </StyledButton>
