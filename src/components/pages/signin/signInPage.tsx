@@ -4,6 +4,8 @@ import { Container, TextField, Typography, Box, Button } from "@mui/material";
 import wichuIcon from "../../../assets/icon/wichu-icon.png";
 import { useNavigate } from "react-router";
 import { api } from "../../../utils/api";
+import { authorizationState, userOidState } from "../../../recoil/atoms";
+import { useRecoilState } from "recoil";
 
 const StyledSignInPage = styled(Container)`
   display: flex;
@@ -38,6 +40,9 @@ const StyledButton = styled(Button)`
 `;
 
 export const SignInPage = (): JSX.Element | null => {
+  const [userOid, setUserOid] = useRecoilState(userOidState);
+  const [authorization, setAuthorization] = useRecoilState(authorizationState);
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -77,10 +82,12 @@ export const SignInPage = (): JSX.Element | null => {
         sx={{ marginTop: "4rem", marginBottom: "1rem" }}
         onClick={async () => {
           try {
-            const { data } = await api.post("/api/v1/auth/login", {
+            const { data, headers } = await api.post("/api/v1/auth/login", {
               login_id: id,
               login_pw: password,
             });
+            setUserOid(data.user.oid);
+            setAuthorization(headers["x-authorization-update"]);
             navigate("/");
           } catch (err) {
             alert(err);
