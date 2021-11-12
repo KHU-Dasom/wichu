@@ -11,4 +11,9 @@ const userOidState = atom({
   default: "",
 });
 
-export { userOidState, authorizationState };
+const showExitButtonState = atom({
+  key: "showExitButtonState",
+  default: false,
+});
+
+export { userOidState, authorizationState, showExitButtonState };

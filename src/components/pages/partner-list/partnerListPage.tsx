@@ -13,7 +13,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { api } from "../../../utils/api";
 import { useRecoilState } from "recoil";
-import { authorizationState } from "../../../recoil/atoms";
+import { authorizationState, showExitButtonState } from "../../../recoil/atoms";
 
 export const StyledPartnerListPage = styled.div`
   display: flex;
@@ -28,6 +28,9 @@ export const PartnerListPage = (): JSX.Element | null => {
   const [authorization, setAuthorization] = useRecoilState(authorizationState);
 
   const [value, setValue] = useState<number>();
+
+  const [showExitButton, setShowExitButton] =
+    useRecoilState(showExitButtonState);
 
   useEffect(() => {
     const fetch = async () => {
@@ -117,7 +120,10 @@ export const PartnerListPage = (): JSX.Element | null => {
           marginTop: "auto",
           marginBottom: "1rem",
         }}
-        onClick={() => navigate("/chatting")}
+        onClick={() => {
+          setShowExitButton(true);
+          navigate("/chatting");
+        }}
       >
         선택
       </Button>

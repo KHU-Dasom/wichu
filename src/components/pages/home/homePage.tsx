@@ -4,6 +4,9 @@ import styled from "styled-components";
 import { KakaoMap } from "../../atoms/kakaoMap2";
 import { userApi } from "../../../utils/api";
 import { useNavigate } from "react-router";
+import { showExitButtonState } from "../../../recoil/atoms";
+import { useRecoilState } from "recoil";
+import { BottomNavigation } from "../../atoms/bottomNavigation/bottomNavigation";
 
 const StyledHomePage = styled(Container)`
   padding: 0px 10px;
@@ -46,6 +49,8 @@ export const HomePage = (): JSX.Element | null => {
   }, []);
 
   const navigate = useNavigate();
+  const [showExitButton, setShowExitButton] =
+    useRecoilState(showExitButtonState);
 
   const fetchData = async () => {
     const userInfoResult: any = await userApi.getInfo(
@@ -76,13 +81,19 @@ export const HomePage = (): JSX.Element | null => {
   return (
     <StyledHomePage maxWidth="sm" sx={{}}>
       <StyledMapField sx={{ my: 1 }}>
-        {destination
-          ? destination
-          : null && (
-              <StyledExitField variant="contained" onClick={() => {}}>
-                동행 종료하기
-              </StyledExitField>
-            )}
+        {/* {destination
+          ? destination */}
+        {showExitButton ? (
+          <StyledExitField
+            variant="contained"
+            onClick={() => {
+              setShowExitButton(false);
+              navigate("/rating");
+            }}
+          >
+            동행 종료하기
+          </StyledExitField>
+        ) : null}
         {userInfo
           ? userInfo.accompany
           : null && (
@@ -96,6 +107,7 @@ export const HomePage = (): JSX.Element | null => {
           createDest={createDest}
         />
       </StyledMapField>
+      <BottomNavigation value={0} />
     </StyledHomePage>
   );
 };
