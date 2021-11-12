@@ -7,11 +7,11 @@ const jitsi = document.querySelector("#jitsi-root");
 const options = {
   roomName: "JitsiMeetAPIExample", // room Token 설정
   width: 360,
-  height: 700,
+  height: 1000,
   parentNode: jitsi,
   userInfo: {
     email: "email@jitsiexampleemail.com",
-    displayName: "John Doe", // user 이름
+    displayName: "Euidong", // user 이름
   },
   configOverwrite: {
     startWithAudioMuted: true,
