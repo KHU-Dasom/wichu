@@ -5,12 +5,16 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { MainRouter } from "./mainRouter";
 import GlobalStyle from "./globalStyles";
+import { ThemeProvider } from "@mui/system";
+import theme from "./styles/theme";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <MainRouter />
-    <GlobalStyle />
-  </BrowserRouter>,
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
+      <MainRouter />
+      <GlobalStyle />
+    </BrowserRouter>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 
