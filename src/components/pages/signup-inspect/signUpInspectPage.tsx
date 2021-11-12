@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -33,9 +34,22 @@ const LoadingTemplate = () => {
   );
 };
 
+function timeout(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const SignUpInspectPage = (): JSX.Element | null => {
   const navigate = useNavigate();
-  const loading = false;
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const loadingFn = async () => {
+      await timeout(3000);
+      setLoading(false);
+    };
+
+    loadingFn();
+  }, []);
 
   if (loading) {
     return <LoadingTemplate />;
