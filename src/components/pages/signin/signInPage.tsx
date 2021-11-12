@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Container, TextField, Typography, Box, Button } from "@mui/material";
 import wichuIcon from "../../../assets/icon/wichu-icon.png";
 import { useNavigate } from "react-router";
+import { api } from "../../../utils/api";
+import { authorizationState, userOidState } from "../../../recoil/atoms";
+import { useRecoilState } from "recoil";
 
 const StyledSignInPage = styled(Container)`
   display: flex;
@@ -37,6 +40,12 @@ const StyledButton = styled(Button)`
 `;
 
 export const SignInPage = (): JSX.Element | null => {
+  const [userOid, setUserOid] = useRecoilState(userOidState);
+  const [authorization, setAuthorization] = useRecoilState(authorizationState);
+
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   return (
@@ -54,13 +63,36 @@ export const SignInPage = (): JSX.Element | null => {
       <StyledTextField
         label="아이디"
         variant="standard"
+        value={id}
+        onChange={(evt) => {
+          setId(evt.target.value);
+        }}
         sx={{ marginBottom: "1rem" }}
       />
-      <StyledTextField label="비밀번호" type="password" variant="standard" />
+      <StyledTextField
+        label="비밀번호"
+        type="password"
+        variant="standard"
+        onChange={(evt) => {
+          setPassword(evt.target.value);
+        }}
+      />
       <StyledButton
         variant="contained"
         sx={{ marginTop: "4rem", marginBottom: "1rem" }}
-        onClick={() => navigate("/")}
+        onClick={async () => {
+          try {
+            const { data, headers } = await api.post("/api/v1/auth/login", {
+              login_id: id,
+              login_pw: password,
+            });
+            setUserOid(data.user.oid);
+            setAuthorization(headers["x-authorization-update"]);
+            navigate("/");
+          } catch (err) {
+            alert(err);
+          }
+        }}
       >
         로그인
       </StyledButton>

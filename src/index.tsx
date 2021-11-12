@@ -7,14 +7,17 @@ import { MainRouter } from "./mainRouter";
 import GlobalStyle from "./globalStyles";
 import { ThemeProvider } from "@mui/system";
 import theme from "./styles/theme";
+import { RecoilRoot } from "recoil";
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <MainRouter />
-      <GlobalStyle />
-    </BrowserRouter>
-  </ThemeProvider>,
+  <RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <MainRouter />
+        <GlobalStyle />
+      </BrowserRouter>
+    </ThemeProvider>
+  </RecoilRoot>,
   document.getElementById("root")
 );
 

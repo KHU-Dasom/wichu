@@ -10,6 +10,10 @@ import styled from "styled-components";
 import { Typography, Button } from "@mui/material";
 import theme from "../../../styles/theme";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
+import { api } from "../../../utils/api";
+import { useRecoilState } from "recoil";
+import { authorizationState } from "../../../recoil/atoms";
 
 export const StyledPartnerListPage = styled.div`
   display: flex;
@@ -21,6 +25,20 @@ export const StyledPartnerListPage = styled.div`
 
 export const PartnerListPage = (): JSX.Element | null => {
   const navigate = useNavigate();
+  const [authorization, setAuthorization] = useRecoilState(authorizationState);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const { data } = await api.get("/api/v1/partners", {
+        headers: {
+          authorization,
+        },
+      });
+
+      console.log(data);
+    };
+    fetch();
+  }, []);
 
   const partners = [
     {
