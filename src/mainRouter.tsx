@@ -24,7 +24,7 @@ function Home() {
     <div>
       <main>
         <Title>Welcome to the homepage!</Title>
-        <p>You can do this, I believe in you.</p>
+        <p>You can do this, I believe in you</p>
       </main>
       <nav>
         <Link to="/about">About</Link>
