@@ -6,7 +6,7 @@ import {
   Rating,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import theme from "../../../styles/theme";
 import { Button } from "@mui/material";
@@ -20,6 +20,8 @@ export const StyledRatingPage = styled.div`
 
 export const RatingPage = (): JSX.Element | null => {
   const navigate = useNavigate();
+
+  const [rating, setRating] = useState<number>();
 
   const partner = {
     name: "헬스조아",
@@ -61,7 +63,14 @@ export const RatingPage = (): JSX.Element | null => {
             </Typography>
           </CardContent>
         </CardContent>
-        <Rating value={4.5} precision={0.5} sx={{ padding: "0 1rem" }} />
+        <Rating
+          value={rating}
+          onChange={(event, newValue) => {
+            setRating(newValue ?? undefined);
+          }}
+          precision={0.5}
+          sx={{ padding: "0 1rem" }}
+        />
       </Card>
       <Button
         variant="contained"
