@@ -26,6 +26,7 @@ const onLeft = () => {
   while (node?.firstChild) {
     node.removeChild(node.firstChild);
   }
+  window.location.href = "/";
 };
 
 const Chat = ({ ...props }) => {

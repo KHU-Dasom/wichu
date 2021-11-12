@@ -6,6 +6,7 @@ import { SignInPage } from "./components/pages/signin/signInPage";
 import { SignUpInspectPage } from "./components/pages/signup-inspect/signUpInspectPage";
 import { PartnerListPage } from "./components/pages/partner-list/partnerListPage";
 import { RatingPage } from "./components/pages/rating/ratingPage";
+import { ChattingPage } from "./components/pages/chatting/chattingPage";
 
 export const MainRouter = () => {
   return (
@@ -16,6 +17,7 @@ export const MainRouter = () => {
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/partner-list" element={<PartnerListPage />} />
       <Route path="/rating" element={<RatingPage />} />
+      <Route path="/chatting" element={<ChattingPage />} />
     </Routes>
   );
 };

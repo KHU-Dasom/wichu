@@ -1,10 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import Chat from "../../Chat";
 
-export const StyledChattingPage = styled.div``;
-
-interface PropType {}
-
-export const ChattingPage = ({}: PropType): JSX.Element | null => {
-  return <StyledChattingPage></StyledChattingPage>;
+export const ChattingPage = (): JSX.Element | null => {
+  return <Chat />;
 };
