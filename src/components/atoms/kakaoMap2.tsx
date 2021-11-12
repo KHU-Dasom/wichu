@@ -124,7 +124,7 @@ export const KakaoMap = ({
             variant="contained"
             onClick={() => {
               closeModal();
-              navigate("./partnerListPage");
+              navigate("/partner-list");
             }}
           >
             확인

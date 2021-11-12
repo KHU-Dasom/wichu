@@ -72,9 +72,6 @@ export const HomePage = (): JSX.Element | null => {
       "618e90b1c1d7d6584445f61f",
       newDestination
     );
-    if (createDestResult.status === 200) {
-      navigate("/partnerListPage");
-    }
   };
   return (
     <StyledHomePage maxWidth="sm" sx={{}}>
