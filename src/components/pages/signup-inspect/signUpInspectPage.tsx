@@ -77,7 +77,6 @@ export const SignUpInspectPage = (): JSX.Element | null => {
       </Card>
       <Button
         variant="contained"
-        disableElevation
         sx={{
           width: "90vw",
           height: "50px",
