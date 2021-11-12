@@ -9,6 +9,7 @@ import {
   IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { useNavigate } from "react-router";
 
 const StyledSignUpPage = styled(Container)`
   padding: 50px 20px;
@@ -37,6 +38,8 @@ const StyledButton = styled(Button)`
 `;
 
 export const SignUpPage = (): JSX.Element | null => {
+  const navigate = useNavigate();
+
   return (
     <StyledSignUpPage
       maxWidth="sm"
@@ -65,7 +68,14 @@ export const SignUpPage = (): JSX.Element | null => {
         variant="outlined"
       />
       <StyledTextField label="휴대폰 번호" variant="outlined" />
-      <StyledButton variant="contained">회원가입</StyledButton>
+      <StyledButton
+        variant="contained"
+        onClick={() => {
+          navigate("/signup/inspect");
+        }}
+      >
+        AI 심사 시작하기
+      </StyledButton>
     </StyledSignUpPage>
   );
 };
