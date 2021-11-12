@@ -1,31 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import { Container, TextField, Typography, Box, Button } from "@mui/material";
-import wichuIcon from "../../../assets/icon/wichu-icon.png";
+import {
+  Container,
+  TextField,
+  Typography,
+  Box,
+  Button,
+  IconButton,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 const StyledSignUpPage = styled(Container)`
-  display: flex;
-  flex-direction: column;
   padding: 50px 20px;
 `;
 
-const StyledTextField = styled(TextField)`
+const PhotoAddButton = styled(IconButton)``;
+
+const StyledTextField = styled(TextField).attrs({
+  sx: {
+    margin: "0.5rem 0",
+  },
+})`
   width: 100%;
 
   input {
-    padding: 12px 0;
+    padding: 1rem;
   }
-`;
-
-const LogoBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto 60px;
-`;
-
-const WichuIcon = styled.img`
-  width: 120px;
-  margin: 0 auto;
 `;
 
 const StyledButton = styled(Button)`
@@ -38,23 +38,33 @@ const StyledButton = styled(Button)`
 
 export const SignUpPage = (): JSX.Element | null => {
   return (
-    <StyledSignUpPage maxWidth="sm">
-      <LogoBox>
-        <WichuIcon src={wichuIcon} />
-        <Typography
-          variant="h4"
-          component="h1"
-          sx={{ fontWeight: 700, textAlign: "center" }}
-        >
-          wichu
-        </Typography>
-      </LogoBox>
-      <StyledTextField placeholder="아이디" variant="standard" />
+    <StyledSignUpPage
+      maxWidth="sm"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <PhotoAddButton
+        size="large"
+        sx={{
+          width: "150px",
+          height: "150px",
+          border: "1px solid grey",
+          borderRadius: "10%",
+          margin: "0 auto 1rem",
+        }}
+      >
+        <AddIcon />
+      </PhotoAddButton>
+      <StyledTextField label="아이디" variant="outlined" />
+      <StyledTextField label="비밀번호" type="password" variant="outlined" />
       <StyledTextField
-        placeholder="비밀번호"
+        label="비밀번호 확인"
         type="password"
-        variant="standard"
+        variant="outlined"
       />
+      <StyledTextField label="휴대폰 번호" variant="outlined" />
       <StyledButton variant="contained">회원가입</StyledButton>
     </StyledSignUpPage>
   );

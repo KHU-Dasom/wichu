@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Container, TextField, Typography, Box, Button } from "@mui/material";
 import wichuIcon from "../../../assets/icon/wichu-icon.png";
+import { useNavigate } from "react-router";
 
 const StyledSignInPage = styled(Container)`
   display: flex;
@@ -13,14 +14,14 @@ const StyledTextField = styled(TextField)`
   width: 100%;
 
   input {
-    padding: 12px 0;
+    padding: 1rem;
   }
 `;
 
 const LogoBox = styled(Box)`
   display: flex;
   flex-direction: column;
-  margin: 0 auto 60px;
+  margin: 0 auto 5rem;
 `;
 
 const WichuIcon = styled.img`
@@ -30,13 +31,14 @@ const WichuIcon = styled.img`
 
 const StyledButton = styled(Button)`
   && {
-    margin-top: 60px;
     width: 100%;
     height: 50px;
   }
 `;
 
 export const SignInPage = (): JSX.Element | null => {
+  const navigate = useNavigate();
+
   return (
     <StyledSignInPage maxWidth="sm">
       <LogoBox>
@@ -49,13 +51,21 @@ export const SignInPage = (): JSX.Element | null => {
           wichu
         </Typography>
       </LogoBox>
-      <StyledTextField placeholder="아이디" variant="standard" />
       <StyledTextField
-        placeholder="비밀번호"
-        type="password"
+        label="아이디"
         variant="standard"
+        sx={{ marginBottom: "1rem" }}
       />
-      <StyledButton variant="contained">로그인</StyledButton>
+      <StyledTextField label="비밀번호" type="password" variant="standard" />
+      <StyledButton
+        variant="contained"
+        sx={{ marginTop: "4rem", marginBottom: "1rem" }}
+      >
+        로그인
+      </StyledButton>
+      <StyledButton variant="outlined" onClick={() => navigate("/signup")}>
+        회원가입
+      </StyledButton>
     </StyledSignInPage>
   );
 };
