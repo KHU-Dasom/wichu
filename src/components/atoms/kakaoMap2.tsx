@@ -7,26 +7,39 @@ import {
   Box,
   Button,
   IconButton,
+  Modal,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
-
 import { useNavigate } from "react-router";
 
 export const StyledKakaoMap = styled.div``;
 
 const StyledButton = styled(Button)`
+  z-index: 199999999;
   && {
     background-color: red;
-    margin-top: 60px;
+    margin-top: 40px;
     width: 100%;
     height: 40px;
   }
 `;
+const BoxStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 interface PropType {
   search: string;
   destination: PositionType | null;
+  createDest: any;
 }
 
 interface PositionType {
@@ -37,6 +50,7 @@ interface PositionType {
 export const KakaoMap = ({
   search,
   destination,
+  createDest,
 }: PropType): JSX.Element | null => {
   const [myPosition, setMyPosition] = useState({
     lat: 37.36526451230517,
@@ -46,8 +60,13 @@ export const KakaoMap = ({
   const [isViewDest, setIsViewDest] = useState(false);
   const [destPosition, setDestPosition] = useState({ lat: 0, lng: 0 });
   const [isClickable, setIsClickable] = useState(true);
+  const [isModalView, setIsModalView] = useState(false);
 
   const navigate = useNavigate();
+
+  const closeModal = () => {
+    setIsModalView(false);
+  };
   const destPositionSetting = (mouseEvent: any) => {
     setDestPosition({
       lat: mouseEvent.latLng.getLat(),
@@ -76,6 +95,42 @@ export const KakaoMap = ({
 
   return (
     <StyledKakaoMap>
+      <Modal
+        open={isModalView}
+        onClose={closeModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 200,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            목적지 생성 성공!
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            리스트에 가서 동행할 친구를 찾아보세요!
+          </Typography>
+          <StyledButton
+            variant="contained"
+            onClick={() => {
+              closeModal();
+              navigate("./partnerListPage");
+            }}
+          >
+            확인
+          </StyledButton>
+        </Box>
+      </Modal>
       <Map // 지도를 표시할 Container
         center={{
           // 지도의 중심좌표
@@ -85,7 +140,7 @@ export const KakaoMap = ({
         style={{
           // 지도의 크기
           width: "100%",
-          height: "450px",
+          height: "100vh",
         }}
         level={3} // 지도의 확대 레벨
         onClick={(_t, mouseEvent) =>
@@ -132,12 +187,15 @@ export const KakaoMap = ({
           <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
             // 커스텀 오버레이가 표시될 위치입니다
             position={destPosition}
-            yAnchor={1.4}
+            yAnchor={0.3}
           >
             {/* 커스텀 오버레이에 표시할 내용입니다 */}
             <StyledButton
-              variant="outlined"
-              onClick={() => navigate("/signup")}
+              variant="contained"
+              onClick={() => {
+                createDest(destPosition);
+                setIsModalView(true);
+              }}
             >
               목적지 등록
             </StyledButton>
