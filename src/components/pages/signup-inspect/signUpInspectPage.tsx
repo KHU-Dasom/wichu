@@ -78,7 +78,12 @@ export const SignUpInspectPage = (): JSX.Element | null => {
       <Button
         variant="contained"
         disableElevation
-        sx={{ width: "90vw", margin: "2rem auto 0", padding: "0.5rem" }}
+        sx={{
+          width: "90vw",
+          height: "50px",
+          margin: "2rem auto 0",
+          padding: "0.5rem",
+        }}
         onClick={() => navigate("/")}
       >
         시작하기
