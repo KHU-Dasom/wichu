@@ -10,6 +10,9 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router";
+import { useState, useRef } from "react";
+import { authorizationState } from "../../../recoil/atoms";
+import { useRecoilState } from "recoil";
 
 const StyledSignUpPage = styled(Container)`
   padding: 50px 20px;
@@ -40,6 +43,14 @@ const StyledButton = styled(Button)`
 export const SignUpPage = (): JSX.Element | null => {
   const navigate = useNavigate();
 
+  const hiddenFileInput = React.useRef<HTMLInputElement>(null);
+  const [authorization, setAuthorization] = useRecoilState(authorizationState);
+
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   return (
     <StyledSignUpPage
       maxWidth="sm"
@@ -57,25 +68,59 @@ export const SignUpPage = (): JSX.Element | null => {
           borderRadius: "10%",
           margin: "0 auto 1rem",
         }}
+        onClick={() => {
+          hiddenFileInput.current?.click();
+        }}
       >
         <AddIcon />
       </PhotoAddButton>
-      <StyledTextField label="아이디" variant="outlined" />
-      <StyledTextField label="비밀번호" type="password" variant="outlined" />
+      <StyledTextField
+        label="아이디"
+        variant="outlined"
+        value={id}
+        onChange={(evt) => {
+          setId(evt.target.value);
+        }}
+      />
+      <StyledTextField
+        label="비밀번호"
+        type="password"
+        variant="outlined"
+        value={password}
+        onChange={(evt) => {
+          setPassword(evt.target.value);
+        }}
+      />
       <StyledTextField
         label="비밀번호 확인"
         type="password"
         variant="outlined"
+        value={passwordConfirm}
+        onChange={(evt) => {
+          setPasswordConfirm(evt.target.value);
+        }}
       />
-      <StyledTextField label="휴대폰 번호" variant="outlined" />
+      <StyledTextField
+        label="휴대폰 번호"
+        variant="outlined"
+        value={phoneNumber}
+        onChange={(evt) => {
+          setPhoneNumber(evt.target.value);
+        }}
+      />
       <StyledButton
         variant="contained"
-        onClick={() => {
-          navigate("/signup/inspect");
+        onClick={async () => {
+          try {
+            navigate("/signup/inspect");
+          } catch (err) {
+            alert(err);
+          }
         }}
       >
         AI 심사 시작하기
       </StyledButton>
+      <input type="file" ref={hiddenFileInput} style={{ display: "none" }} />
     </StyledSignUpPage>
   );
 };
